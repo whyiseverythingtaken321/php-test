@@ -1,17 +1,21 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
+    $phone = $_POST['phone'];
     $email = $_POST['email'];
-    $email = $_POST['code'];
+    $activation_code = $_POST['activation_code'];
 
     $data = array(
-        'name' => $name,
-        'email' => $email
-        'code' => $code
+        'phone' => $phone,
+        'email' => $email,
+        'activation_code' => $activation_code
     );
 
-    $jsonData = file_get_contents('data.json');
-    $jsonArray = json_decode($jsonData, true);
+    if (file_exists('data.json')) {
+        $jsonData = file_get_contents('data.json');
+        $jsonArray = json_decode($jsonData, true);
+    } else {
+        $jsonArray = array();
+    }
 
     $jsonArray[] = $data;
 
